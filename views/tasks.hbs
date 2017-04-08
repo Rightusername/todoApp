@@ -1,0 +1,173 @@
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+        .completed {
+            background-color: #aaffa5;
+            margin: 6px;
+        }
+
+        body{
+            font-family: sans-serif;
+        }
+      
+
+
+        .btnEdit{
+            display: inline-block;
+
+        }
+        
+
+        table{
+            width:100%;
+            font-family: sans-serif;
+        }
+        
+        .td_name{
+            width: 80%;
+            padding: 8px;
+        }
+
+        .td_btns{
+            width: 13%;
+        }
+
+        .td_number{
+            width: 7%;
+            text-align: center;
+        }
+
+        .btnComplete{
+            width:20px;
+            height: 20px;
+            display:inline-block;
+            vertical-align: top;
+            margin: 5px;
+        }
+        
+        .btnDel{
+            display:inline-block;
+            vertical-align: top;
+            height: 20px;
+            width:20px;
+            margin: 5px;
+            background: url("img/del.png") no-repeat 0 0;
+            background-size: cover;
+            border: transparent;
+        }
+        
+        th{
+            background-color: #e4ed47;
+            padding:8px;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+
+        
+
+    </style>
+</head>
+
+<h2>Список задач</h2>
+<table cellspacing="0">
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Описание</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="list">
+    {{#each tasks}}
+        <tr data-complete="{{complete}}" data-id="{{id}}">
+            <td class="td_number">{{@index}}</td>
+            <td class="td_name"> {{name}} </td>
+            <td class="td_btns">
+                <button class='btnDel'></button>
+                <!-- <button class='btnComplete'>Complete</button> -->
+                <!-- <button class='btnEdit'>Edit</button> -->
+                  {{#if complete}}
+                    <input class="btnComplete" type="checkbox" checked> 
+                  {{else}}
+                    <input class="btnComplete" type="checkbox"> 
+                  {{/if}}
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<script>
+    var url = 'http://localhost:3000/';
+    var table = 'tasks';
+    render();
+    function render() {
+        $('#list').children().each(function () {
+            if (this.dataset.complete == 1) {
+                this.className = 'completed';
+                this.getElementsByClassName('btnComplete')[0].innerHTML = "Uncomplete"
+            }else{
+                this.className = '';
+                this.getElementsByClassName('btnComplete')[0].innerHTML = "Complete";
+            }
+        });
+    }
+
+
+    document.getElementById("list").onclick = function (e) {
+        if (e.target.className == 'btnDel') {
+            var target = e.target;
+            while (target.tagName != 'TR') {
+                target = target.parentNode;
+            }
+
+            var msg = "id=" + target.dataset.id;
+            target.parentNode.removeChild(target);
+            $.ajax({
+                type: 'POST',
+                url: "delItem",
+                data: msg,
+                error: function (xhr, str) {
+                    console.log('Возникла ошибка: ' + str);
+                },
+                success: function (xhr, str) {
+                    console.log('Success: ' + str);
+                }
+            });
+        }
+
+        if (e.target.className == 'btnComplete') {
+            var target = e.target;
+            while (target.tagName != 'TR') {
+                target = target.parentNode;
+            }
+            if(target.dataset.complete == 1){
+                target.dataset.complete = 0;
+            }else{
+                target.dataset.complete = 1;
+            }
+
+            var msg = "id=" + target.dataset.id + "&value=" + target.dataset.complete;
+            render();
+            $.ajax({
+                type: 'POST',
+                url: "completeTask",
+                data: msg,
+                error: function (xhr, str) {
+                    console.log('Возникла ошибка: ' + str);
+                },
+                success: function (xhr, str) {
+                    console.log('Success: ' + str);
+                }
+            });
+        }
+    }
+
+
+</script>

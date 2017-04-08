@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title>Log In</title>
+	<style>
+		form{
+			width: 500px;
+			margin: auto;
+
+		}
+		input{
+			font-size: 30px;
+			padding: 20px;
+			width: 100%;
+			margin-top: 20px;
+		}
+
+		.msg{
+			font-size: 30px;
+			text-align: center;
+			font-family: tahoma;
+			padding:30px;
+		}
+
+		a{
+			display: block; 
+			text-decoration: none;
+			padding: 20px;
+			font-family: tahoma;
+			font-size: 20px;
+			color: white;
+			margin-top: 20px;
+			background-color: #5af;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="msg">{{msg}}</div>
+	<form action="/login" method="POST">
+		<input type="text" name="username" placeholder="username">
+		<input type="password" name="password" placeholder="password">
+		<input type="submit" value="login">
+		<a href="/registration">Registration</a>
+	</form>
+</body>
+</html>
