@@ -1,6 +1,10 @@
 {
     "name":"todo",
     "version": "0.0.1",
+        "main": "app.js",
+        "scripts": {
+            "start": "node app.js"
+        },
     "dependencies": {
         "bcrypt": "^1.0.2",
         "body-parser": "^1.16.1",
@@ -13,8 +17,20 @@
         "passport": "0.x",
         "passport-local": "1.x"
     },
-    "engines" : {
-        "node": "0.10.x",
-        "npm": "1.2.x"
-    }
+    "version": "0.2.5",
+    "description": "A sample Node.js app using Express 4",
+    "engines": {
+        "node":">=0.8",
+        "npm":"1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://git.heroku.com/fast-fortress-81170.git"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express"
+    ],
+    "license": "MIT"
 }
