@@ -1,14 +1,20 @@
 {
-  "dependencies": {
-    "bcrypt": "^1.0.2",
-    "body-parser": "^1.16.1",
-    "consolidate": "0.x",
-    "cookie-parser": "1.x",
-    "cookie-session": "1.x",
-    "express": "^4.13.4",
-    "handlebars": "2.x",
-    "mysql": "^2.10.2",
-    "passport": "0.x",
-    "passport-local": "1.x"
-  }
+    "name":"todo",
+    "version": "0.0.1",
+    "dependencies": {
+        "bcrypt": "^1.0.2",
+        "body-parser": "^1.16.1",
+        "consolidate": "0.x",
+        "cookie-parser": "1.x",
+        "cookie-session": "1.x",
+        "express": "^4.13.4",
+        "handlebars": "2.x",
+        "mysql": "^2.10.2",
+        "passport": "0.x",
+        "passport-local": "1.x"
+    },
+    "engines" : {
+        "node": "0.10.x",
+        "npm": "1.2.x"
+    }
 }
